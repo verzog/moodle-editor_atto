@@ -29,7 +29,7 @@ require_once(__DIR__ . '/../../../../../config.php');
 
 $contextid = required_param('contextid', PARAM_INT);
 
-list($context, $course, $cm) = get_context_info_array($contextid);
+[$context, $course, $cm] = get_context_info_array($contextid);
 $PAGE->set_url('/lib/editor/atto/plugins/equation/ajax.php');
 $PAGE->set_context($context);
 
@@ -44,8 +44,6 @@ if ($action === 'filtertext') {
     $result = filter_manager::instance()->filter_text($text, $context);
     echo $OUTPUT->header();
     echo $result;
-
-    die();
+} else {
+    throw new \moodle_exception('invalidarguments');
 }
-
-throw new \moodle_exception('invalidarguments');

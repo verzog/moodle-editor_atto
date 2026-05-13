@@ -47,7 +47,7 @@ class atto_texteditor extends texteditor {
      */
     public function get_supported_formats() {
         // FORMAT_MOODLE is not supported here, sorry.
-        return array(FORMAT_HTML => FORMAT_HTML);
+        return [FORMAT_HTML => FORMAT_HTML];
     }
 
     /**
@@ -105,12 +105,12 @@ class atto_texteditor extends texteditor {
             }
         }
 
-        $modules = array('moodle-editor_atto-editor');
-        $options['context'] = empty($options['context']) ? context_system::instance() : $options['context'];
+        $modules = ['moodle-editor_atto-editor'];
+        $options['context'] = empty($options['context']) ? \core\context\system::instance() : $options['context'];
 
-        $jsplugins = array();
+        $jsplugins = [];
         foreach ($groups as $group => $plugins) {
-            $groupplugins = array();
+            $groupplugins = [];
             foreach ($plugins as $plugin) {
                 // Do not die on missing plugin.
                 if (!core_component::get_component_directory('atto_' . $plugin))  {
@@ -122,9 +122,9 @@ class atto_texteditor extends texteditor {
                     continue;
                 }
 
-                $jsplugin = array();
+                $jsplugin = [];
                 $jsplugin['name'] = $plugin;
-                $jsplugin['params'] = array();
+                $jsplugin['params'] = [];
                 $modules[] = 'moodle-atto_' . $plugin . '-button';
 
                 component_callback('atto_' . $plugin, 'strings_for_js');
@@ -137,7 +137,7 @@ class atto_texteditor extends texteditor {
                 $PAGE->requires->string_for_js('pluginname', 'atto_' . $plugin);
                 $groupplugins[] = $jsplugin;
             }
-            $jsplugins[] = array('group'=>$group, 'plugins'=>$groupplugins);
+            $jsplugins[] = ['group' => $group, 'plugins' => $groupplugins];
         }
 
         $PAGE->requires->strings_for_js([
@@ -150,10 +150,10 @@ class atto_texteditor extends texteditor {
                 'errortextrecovery',
                 'richtexteditor',
             ], 'editor_atto');
-        $PAGE->requires->strings_for_js(array(
+        $PAGE->requires->strings_for_js([
                 'warning',
-                'info'
-            ), 'moodle');
+                'info',
+            ], 'moodle');
         $PAGE->requires->yui_module($modules,
                                     'Y.M.editor_atto.Editor.init',
                                     array($this->get_init_params($elementid, $options, $fpoptions, $jsplugins)));
@@ -164,8 +164,10 @@ class atto_texteditor extends texteditor {
      * Create a params array to init the editor.
      *
      * @param string $elementid
-     * @param array $options
-     * @param array $fpoptions
+     * @param array|null $options
+     * @param array|null $fpoptions
+     * @param array|null $plugins
+     * @return array
      */
     protected function get_init_params($elementid, ?array $options = null, ?array $fpoptions = null, $plugins = null) {
         global $PAGE;
@@ -182,12 +184,12 @@ class atto_texteditor extends texteditor {
         $contentcss     = $PAGE->theme->editor_css_url()->out(false);
 
         // Autosave disabled for guests and not logged in users.
-        if (isguestuser() OR !isloggedin()) {
+        if (isguestuser() || !isloggedin()) {
             $autosave = false;
         }
         // Note <> is a safe separator, because it will not appear in the output of s().
         $pagehash = sha1($PAGE->url . '<>' . s($this->get_text()));
-        $params = array(
+        $params = [
             'elementid' => $elementid,
             'content_css' => $contentcss,
             'contextid' => $options['context']->id,
@@ -195,10 +197,10 @@ class atto_texteditor extends texteditor {
             'autosaveFrequency' => $autosavefrequency,
             'language' => $lang,
             'directionality' => $directionality,
-            'filepickeroptions' => array(),
+            'filepickeroptions' => [],
             'plugins' => $plugins,
             'pageHash' => $pagehash,
-        );
+        ];
         if ($fpoptions) {
             $params['filepickeroptions'] = $fpoptions;
         }

@@ -23,6 +23,7 @@
  */
 
 $string['autosavefailed'] = 'Could not connect to the server. If you submit this page now, your changes may be lost.';
+$string['concurrentautosavesession'] = 'Another browser session is currently editing the same content. Your autosave draft has not been updated.';
 $string['autosavefrequency'] = 'Autosave frequency';
 $string['autosavefrequency_desc'] = 'This is the number of seconds between auto save attempts. Atto will automatically save the text in the editor according to this setting, so that text can be automatically restored when the same user returns to the same form.';
 $string['autosavesucceeded'] = 'Draft saved.';

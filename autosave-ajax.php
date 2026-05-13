@@ -29,14 +29,14 @@ require_once($CFG->libdir . '/filestorage/file_storage.php');
 
 // Clean up actions.
 $actions = array_map(function($actionparams) {
-    $action = isset($actionparams['action']) ? $actionparams['action'] : null;
+    $action = $actionparams['action'] ?? null;
     $params = [];
     $keys = [
         'action' => PARAM_ALPHA,
         'contextid' => PARAM_INT,
         'elementid' => PARAM_ALPHANUMEXT,
         'pagehash' => PARAM_ALPHANUMEXT,
-        'pageinstance' => PARAM_ALPHANUMEXT
+        'pageinstance' => PARAM_ALPHANUMEXT,
     ];
 
     if ($action == 'save') {
@@ -54,15 +54,15 @@ $actions = array_map(function($actionparams) {
     }
 
     return $params;
-}, isset($_REQUEST['actions']) ? $_REQUEST['actions'] : []);
+}, $_REQUEST['actions'] ?? []);
 
 $now = time();
 // This is the oldest time any autosave text will be recovered from.
 // This is so that there is a good chance the draft files will still exist (there are many variables so
 // this is impossible to guarantee).
-$before = $now - 60*60*24*4;
+$before = $now - (4 * DAYSECS);
 
-$context = context_system::instance();
+$context = \core\context\system::instance();
 $PAGE->set_url('/lib/editor/atto/autosave-ajax.php');
 $PAGE->set_context($context);
 
@@ -76,7 +76,7 @@ if (!in_array('atto', explode(',', get_config('core', 'texteditors')))) {
     throw new \moodle_exception('accessdenied', 'admin');
 }
 
-$responses = array();
+$responses = [];
 foreach ($actions as $actionparams) {
 
     $action = $actionparams['action'];
@@ -87,15 +87,16 @@ foreach ($actions as $actionparams) {
 
     if ($action === 'save') {
         $drafttext = $actionparams['drafttext'];
-        $params = array('elementid' => $elementid,
-                        'userid' => $USER->id,
-                        'pagehash' => $pagehash,
-                        'contextid' => $contextid);
+        $params = [
+            'elementid' => $elementid,
+            'userid' => $USER->id,
+            'pagehash' => $pagehash,
+            'contextid' => $contextid,
+        ];
 
         $record = $DB->get_record('editor_atto_autosave', $params);
         if ($record && $record->pageinstance != $pageinstance) {
-            throw new \moodle_exception('concurrent access from the same user is not supported');
-            die();
+            throw new \moodle_exception('concurrentautosavesession', 'editor_atto');
         }
 
         if (!$record) {
@@ -115,7 +116,7 @@ foreach ($actions as $actionparams) {
             continue;
         } else {
             $record->drafttext = $drafttext;
-            $record->timemodified = time();
+            $record->timemodified = $now;
             $DB->update_record('editor_atto_autosave', $record);
 
             // No response means no error.
@@ -124,10 +125,12 @@ foreach ($actions as $actionparams) {
         }
 
     } else if ($action == 'resume') {
-        $params = array('elementid' => $elementid,
-                        'userid' => $USER->id,
-                        'pagehash' => $pagehash,
-                        'contextid' => $contextid);
+        $params = [
+            'elementid' => $elementid,
+            'userid' => $USER->id,
+            'pagehash' => $pagehash,
+            'contextid' => $contextid,
+        ];
 
         $newdraftid = $actionparams['draftid'];
 
@@ -140,9 +143,8 @@ foreach ($actions as $actionparams) {
             $record->pagehash = $pagehash;
             $record->contextid = $contextid;
             $record->pageinstance = $pageinstance;
-            $record->pagehash = $pagehash;
             $record->draftid = $newdraftid;
-            $record->timemodified = time();
+            $record->timemodified = $now;
             $record->drafttext = '';
 
             $DB->insert_record('editor_atto_autosave', $record);
@@ -153,7 +155,7 @@ foreach ($actions as $actionparams) {
 
         } else {
             // Copy all draft files from the old draft area.
-            $usercontext = context_user::instance($USER->id);
+            $usercontext = \core\context\user::instance($USER->id);
             $stale = $record->timemodified < $before;
             require_once($CFG->libdir . '/filelib.php');
 
@@ -176,7 +178,7 @@ foreach ($actions as $actionparams) {
                                                            'user',
                                                            'draft',
                                                            $newdraftid,
-                                                           array(),
+                                                           [],
                                                            $record->drafttext);
 
                 // Final rewrite to the new draft area (convert the @@PLUGINFILES@@ again).
@@ -190,15 +192,14 @@ foreach ($actions as $actionparams) {
 
                 $record->pageinstance = $pageinstance;
                 $record->draftid = $newdraftid;
-                $record->timemodified = time();
+                $record->timemodified = $now;
                 $DB->update_record('editor_atto_autosave', $record);
 
                 // A response means the draft has been restored and here is the auto-saved text.
-                $response = ['result' => $record->drafttext];
-                $responses[] = $response;
+                $responses[] = ['result' => $record->drafttext];
 
             } else {
-                $DB->delete_records('editor_atto_autosave', array('id' => $record->id));
+                $DB->delete_records('editor_atto_autosave', ['id' => $record->id]);
 
                 // No response means no error.
                 $responses[] = null;
@@ -207,10 +208,12 @@ foreach ($actions as $actionparams) {
         }
 
     } else if ($action == 'reset') {
-        $params = array('elementid' => $elementid,
-                        'userid' => $USER->id,
-                        'pagehash' => $pagehash,
-                        'contextid' => $contextid);
+        $params = [
+            'elementid' => $elementid,
+            'userid' => $USER->id,
+            'pagehash' => $pagehash,
+            'contextid' => $contextid,
+        ];
 
         $DB->delete_records('editor_atto_autosave', $params);
         $responses[] = null;
