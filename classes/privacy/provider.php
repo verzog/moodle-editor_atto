@@ -94,7 +94,7 @@ class provider implements
      *
      * @param userlist $userlist The userlist containing the list of users who have data in this context/plugin combination.
      */
-    public static function get_users_in_context(userlist $userlist) {
+    public static function get_users_in_context(userlist $userlist): void {
         $context = $userlist->get_context();
 
         $params = [
@@ -113,14 +113,14 @@ class provider implements
      *
      * @param   approved_contextlist    $contextlist    The approved contexts to export information for.
      */
-    public static function export_user_data(approved_contextlist $contextlist) {
+    public static function export_user_data(approved_contextlist $contextlist): void {
         global $DB;
 
         $user = $contextlist->get_user();
 
         // Firstly export all autosave records from all contexts in the list owned by the given user.
 
-        list($contextsql, $contextparams) = $DB->get_in_or_equal($contextlist->get_contextids(), SQL_PARAMS_NAMED);
+        [$contextsql, $contextparams] = $DB->get_in_or_equal($contextlist->get_contextids(), SQL_PARAMS_NAMED);
         $contextparams['userid'] = $user->id;
 
         $sql = "SELECT *
@@ -133,7 +133,7 @@ class provider implements
         // Additionally export all eventual records in the given user's context regardless the actual owner.
         // We still consider them to be the user's personal data even when edited by someone else.
 
-        list($contextsql, $contextparams) = $DB->get_in_or_equal($contextlist->get_contextids(), SQL_PARAMS_NAMED);
+        [$contextsql, $contextparams] = $DB->get_in_or_equal($contextlist->get_contextids(), SQL_PARAMS_NAMED);
         $contextparams['userid'] = $user->id;
         $contextparams['contextuser'] = CONTEXT_USER;
 
@@ -152,9 +152,9 @@ class provider implements
      * @param   \stdClass   $user The user whose data is to be exported
      * @param   \moodle_recordset $autosaves The recordset containing the data to export
      */
-    protected static function export_autosaves(\stdClass $user, \moodle_recordset $autosaves) {
+    protected static function export_autosaves(\stdClass $user, \moodle_recordset $autosaves): void {
         foreach ($autosaves as $autosave) {
-            $context = \context::instance_by_id($autosave->contextid);
+            $context = \core\context::instance_by_id($autosave->contextid);
             $subcontext = [
                 get_string('autosaves', 'editor_atto'),
                 $autosave->id,
@@ -182,9 +182,9 @@ class provider implements
     /**
      * Delete all data for all users in the specified context.
      *
-     * @param   \context $context   The specific context to delete data for.
+     * @param   \core\context $context   The specific context to delete data for.
      */
-    public static function delete_data_for_all_users_in_context(\context $context) {
+    public static function delete_data_for_all_users_in_context(\core\context $context): void {
         global $DB;
 
         $DB->delete_records('editor_atto_autosave', [
@@ -197,13 +197,13 @@ class provider implements
      *
      * @param approved_userlist $userlist The approved context and user information to delete information for.
      */
-    public static function delete_data_for_users(approved_userlist $userlist) {
+    public static function delete_data_for_users(approved_userlist $userlist): void {
         global $DB;
 
         $context = $userlist->get_context();
         $userids = $userlist->get_userids();
 
-        list($useridsql, $useridsqlparams) = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED);
+        [$useridsql, $useridsqlparams] = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED);
         $params = ['contextid' => $context->id] + $useridsqlparams;
 
         $DB->delete_records_select('editor_atto_autosave', "contextid = :contextid AND userid {$useridsql}",
@@ -215,16 +215,15 @@ class provider implements
      *
      * @param   approved_contextlist    $contextlist    The approved contexts and user information to delete information for.
      */
-    public static function delete_data_for_user(approved_contextlist $contextlist) {
+    public static function delete_data_for_user(approved_contextlist $contextlist): void {
         global $DB;
 
         $user = $contextlist->get_user();
 
-        list($contextsql, $contextparams) = $DB->get_in_or_equal($contextlist->get_contextids(), SQL_PARAMS_NAMED);
+        [$contextsql, $contextparams] = $DB->get_in_or_equal($contextlist->get_contextids(), SQL_PARAMS_NAMED);
         $contextparams['userid'] = $user->id;
 
-        $sql = "SELECT * FROM {editor_atto_autosave} WHERE contextid {$contextsql}";
-        $autosaves = $DB->delete_records_select('editor_atto_autosave', "userid = :userid AND contextid {$contextsql}",
+        $DB->delete_records_select('editor_atto_autosave', "userid = :userid AND contextid {$contextsql}",
                 $contextparams);
     }
 
@@ -235,7 +234,7 @@ class provider implements
      *
      * @return  \stdClass
      */
-    public static function get_filter_options() {
+    public static function get_filter_options(): \stdClass {
         return (object) [
             'overflowdiv' => true,
             'noclean' => true,

@@ -27,32 +27,42 @@ use core\plugininfo\base;
 
 defined('MOODLE_INTERNAL') || die();
 
-
+/**
+ * Plugininfo class for atto subplugins.
+ *
+ * @package   editor_atto
+ * @copyright 2013 Petr Skoda {@link http://skodak.org}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class atto extends base {
 
     /**
      * Yes you can uninstall these plugins if you want.
-     * @return \moodle_url
+     *
+     * @return bool
      */
-    public function is_uninstall_allowed() {
+    public function is_uninstall_allowed(): bool {
         return true;
     }
 
     /**
      * Return URL used for management of plugins of this type.
+     *
      * @return \moodle_url
      */
-    public static function get_manage_url() {
-        return new \moodle_url('/admin/settings.php', array('section'=>'editorsettingsatto'));
+    public static function get_manage_url(): \moodle_url {
+        return new \moodle_url('/admin/settings.php', ['section' => 'editorsettingsatto']);
     }
 
     /**
      * Include the settings.php file from sub plugins if they provide it.
      * This is a copy of very similar implementations from various other subplugin areas.
      *
-     * @return \moodle_url
+     * @param \part_of_admin_tree $adminroot
+     * @param string $parentnodename
+     * @param bool $hassiteconfig
      */
-    public function load_settings(\part_of_admin_tree $adminroot, $parentnodename, $hassiteconfig) {
+    public function load_settings(\part_of_admin_tree $adminroot, $parentnodename, $hassiteconfig): void {
         global $CFG, $USER, $DB, $OUTPUT, $PAGE; // In case settings.php wants to refer to them.
         /** @var \admin_root $ADMIN */
         $ADMIN = $adminroot; // May be used in settings.php.
@@ -62,7 +72,7 @@ class atto extends base {
             return;
         }
 
-        if (!$hassiteconfig or !file_exists($this->full_path('settings.php'))) {
+        if (!$hassiteconfig || !file_exists($this->full_path('settings.php'))) {
             return;
         }
 
@@ -79,9 +89,9 @@ class atto extends base {
      * Get the settings section name.
      * It's used to get the setting links in the Atto sub-plugins table.
      *
-     * @return null|string the settings section name.
+     * @return string|null the settings section name.
      */
-    public function get_settings_section_name() {
+    public function get_settings_section_name(): ?string {
         return 'atto_' . $this->name . '_settings';
     }
 }

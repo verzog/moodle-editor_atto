@@ -51,15 +51,15 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         // - current user context; and
         // - another user.
 
-        $systemcontext = \context_system::instance();
+        $systemcontext = \core\context\system::instance();
         $course = $this->getDataGenerator()->create_course();
-        $coursecontext = \context_course::instance($course->id);
+        $coursecontext = \core\context\course::instance($course->id);
 
         $usercontextids = [];
         $user = $this->getDataGenerator()->create_user();
         $this->setUser($user);
 
-        $usercontext = \context_user::instance($user->id);
+        $usercontext = \core\context\user::instance($user->id);
         $usercontextids[] = $usercontext->id;
         $usercontextids[] = $systemcontext->id;
         $usercontextids[] = $coursecontext->id;
@@ -84,7 +84,7 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $otheruser = $this->getDataGenerator()->create_user();
         $this->setUser($otheruser);
 
-        $otherusercontext = \context_user::instance($otheruser->id);
+        $otherusercontext = \core\context\user::instance($otheruser->id);
         $otherusercontextids[] = $otherusercontext->id;
         $otherusercontextids[] = $systemcontext->id;
         $otherusercontextids[] = $coursecontext->id;
@@ -154,15 +154,15 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         // - current user context; and
         // - another user.
 
-        $systemcontext = \context_system::instance();
+        $systemcontext = \core\context\system::instance();
         $course = $this->getDataGenerator()->create_course();
-        $coursecontext = \context_course::instance($course->id);
+        $coursecontext = \core\context\course::instance($course->id);
 
         $usercontextids = [];
         $user = $this->getDataGenerator()->create_user();
         $this->setUser($user);
 
-        $usercontext = \context_user::instance($user->id);
+        $usercontext = \core\context\user::instance($user->id);
         $usercontextids[] = $usercontext->id;
         $usercontextids[] = $systemcontext->id;
         $usercontextids[] = $coursecontext->id;
@@ -187,7 +187,7 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $otheruser = $this->getDataGenerator()->create_user();
         $this->setUser($otheruser);
 
-        $otherusercontext = \context_user::instance($otheruser->id);
+        $otherusercontext = \core\context\user::instance($otheruser->id);
         $otherusercontextids[] = $otherusercontext->id;
         $otherusercontextids[] = $systemcontext->id;
         $otherusercontextids[] = $coursecontext->id;
@@ -240,15 +240,15 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         // - current user context; and
         // - another user.
 
-        $systemcontext = \context_system::instance();
+        $systemcontext = \core\context\system::instance();
         $course = $this->getDataGenerator()->create_course();
-        $coursecontext = \context_course::instance($course->id);
+        $coursecontext = \core\context\course::instance($course->id);
 
         $usercontextids = [];
         $user = $this->getDataGenerator()->create_user();
         $this->setUser($user);
 
-        $usercontext = \context_user::instance($user->id);
+        $usercontext = \core\context\user::instance($user->id);
         $usercontextids[] = $usercontext->id;
         $usercontextids[] = $systemcontext->id;
         $usercontextids[] = $coursecontext->id;
@@ -273,7 +273,7 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $otheruser = $this->getDataGenerator()->create_user();
         $this->setUser($otheruser);
 
-        $otherusercontext = \context_user::instance($otheruser->id);
+        $otherusercontext = \core\context\user::instance($otheruser->id);
         $otherusercontextids[] = $otherusercontext->id;
         $otherusercontextids[] = $systemcontext->id;
         $otherusercontextids[] = $coursecontext->id;
@@ -343,14 +343,14 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         // - current user context; and
         // - another user.
 
-        $systemcontext = \context_system::instance();
+        $systemcontext = \core\context\system::instance();
         // Create a course.
         $course = $this->getDataGenerator()->create_course();
-        $coursecontext = \context_course::instance($course->id);
+        $coursecontext = \core\context\course::instance($course->id);
 
         // Create a user.
         $user = $this->getDataGenerator()->create_user();
-        $usercontext = \context_user::instance($user->id);
+        $usercontext = \core\context\user::instance($user->id);
         $this->setUser($user);
 
         // Add a fake inline image to the original post.
@@ -404,14 +404,14 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         // - current user context; and
         // - another user.
 
-        $systemcontext = \context_system::instance();
+        $systemcontext = \core\context\system::instance();
         // Create a course.
         $course = $this->getDataGenerator()->create_course();
-        $coursecontext = \context_course::instance($course->id);
+        $coursecontext = \core\context\course::instance($course->id);
 
         // Create a user.
         $user = $this->getDataGenerator()->create_user();
-        $usercontext = \context_user::instance($user->id);
+        $usercontext = \core\context\user::instance($user->id);
         $this->setUser($user);
 
         // Add a fake inline image to the original post.
@@ -430,7 +430,7 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
 
         // Create some data as the other user too.
         $otheruser = $this->getDataGenerator()->create_user();
-        $otherusercontext = \context_user::instance($otheruser->id);
+        $otherusercontext = \core\context\user::instance($otheruser->id);
         $this->setUser($otheruser);
 
         $this->create_editor_draft($otherusercontext, $otheruser->id,
@@ -518,9 +518,9 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $this->resetAfterTest();
 
         $user = $this->getDataGenerator()->create_user();
-        $usercontext = \context_user::instance($user->id);
+        $usercontext = \core\context\user::instance($user->id);
         $otheruser = $this->getDataGenerator()->create_user();
-        $otherusercontext = \context_user::instance($otheruser->id);
+        $otherusercontext = \core\context\user::instance($otheruser->id);
         $this->setUser($user);
 
         $userdraftintro = $this->create_editor_draft($usercontext, $otheruser->id,
@@ -571,9 +571,9 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $this->resetAfterTest();
 
         $user = $this->getDataGenerator()->create_user();
-        $usercontext = \context_user::instance($user->id);
+        $usercontext = \core\context\user::instance($user->id);
         $otheruser = $this->getDataGenerator()->create_user();
-        $otherusercontext = \context_user::instance($otheruser->id);
+        $otherusercontext = \core\context\user::instance($otheruser->id);
         $this->setUser($user);
 
         $userdraftintro = $this->create_editor_draft($otherusercontext, $user->id,

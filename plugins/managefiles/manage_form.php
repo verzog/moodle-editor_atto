@@ -37,7 +37,7 @@ require_once($CFG->libdir."/formslib.php");
  */
 class atto_managefiles_manage_form extends moodleform {
 
-    function definition() {
+    public function definition() {
         global $PAGE, $USER;
         $mform = $this->_form;
 

@@ -21,7 +21,7 @@
  * the Moodle DB after any install or upgrade operation. All plugins
  * support this.
  *
- * @package   core
+ * @package   editor_atto
  * @category  task
  * @copyright 2013 Damyon Wiese
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

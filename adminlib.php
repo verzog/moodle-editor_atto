@@ -53,15 +53,15 @@ class editor_atto_toolbar_setting extends admin_setting_configtextarea {
         }
 
         $lines = explode("\n", $data);
-        $groups = array();
-        $plugins = array();
+        $groups = [];
+        $plugins = [];
 
         foreach ($lines as $line) {
             if (!trim($line)) {
                 continue;
             }
 
-            $matches = array();
+            $matches = [];
             if (!preg_match('/^\s*([a-z0-9]+)\s*=\s*([a-z0-9]+(\s*,\s*[a-z0-9]+)*)+\s*$/', $line, $matches)) {
                 $result = get_string('errorcannotparseline', 'editor_atto', $line);
                 break;
@@ -197,9 +197,9 @@ class editor_atto_subplugins_setting extends admin_setting {
         $return .= $OUTPUT->box_start('generalbox attosubplugins');
 
         $table = new html_table();
-        $table->head  = array($strname, $strversion, $strtoolbarconfig, $strsettings, $struninstall);
-        $table->align = array('left', 'left', 'center', 'center', 'center', 'center');
-        $table->data  = array();
+        $table->head  = [$strname, $strversion, $strtoolbarconfig, $strsettings, $struninstall];
+        $table->align = ['left', 'left', 'center', 'center', 'center', 'center'];
+        $table->data  = [];
         $table->attributes['class'] = 'admintable generaltable';
 
         // Iterate through subplugins.
@@ -217,10 +217,10 @@ class editor_atto_subplugins_setting extends admin_setting {
 
             // Check if there is an icon in the atto plugin pix/ folder.
             if ($PAGE->theme->resolve_image_location('icon', 'atto_' . $name, false)) {
-                $icon = $OUTPUT->pix_icon('icon', '', 'atto_' . $name, array('class' => 'icon pluginicon'));
+                $icon = $OUTPUT->pix_icon('icon', '', 'atto_' . $name, ['class' => 'icon pluginicon']);
             } else {
                 // No icon found.
-                $icon = $OUTPUT->pix_icon('spacer', '', 'moodle', array('class' => 'icon pluginicon noicon'));
+                $icon = $OUTPUT->pix_icon('spacer', '', 'moodle', ['class' => 'icon pluginicon noicon']);
             }
             $displayname = $icon . $displayname;
 
@@ -240,7 +240,7 @@ class editor_atto_subplugins_setting extends admin_setting {
             }
 
             // Add a row to the table.
-            $row = new html_table_row(array($displayname, $version, $toolbarconfig, $settings, $uninstall));
+            $row = new html_table_row([$displayname, $version, $toolbarconfig, $settings, $uninstall]);
             $table->data[] = $row;
         }
         $return .= html_writer::table($table);
