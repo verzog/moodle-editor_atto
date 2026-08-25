@@ -25,8 +25,6 @@ namespace editor_atto\plugininfo;
 
 use core\plugininfo\base;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Plugininfo class for atto subplugins.
  *
@@ -35,7 +33,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class atto extends base {
-
     /**
      * Yes you can uninstall these plugins if you want.
      *

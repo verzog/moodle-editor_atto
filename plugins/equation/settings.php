@@ -28,7 +28,7 @@ $ADMIN->add('editoratto', new admin_category('atto_equation', new lang_string('p
 
 $settings = new admin_settingpage('atto_equation_settings', new lang_string('settings', 'atto_equation'));
 if ($ADMIN->fulltree) {
-    // Group 1
+    // Group 1.
     $name = new lang_string('librarygroup1', 'atto_equation');
     $desc = new lang_string('librarygroup1_desc', 'atto_equation');
     $default = '
@@ -70,13 +70,15 @@ if ($ADMIN->fulltree) {
 \exists
 \neq
 ';
-    $setting = new admin_setting_configtextarea('atto_equation/librarygroup1',
-                                                $name,
-                                                $desc,
-                                                $default);
+    $setting = new admin_setting_configtextarea(
+        'atto_equation/librarygroup1',
+        $name,
+        $desc,
+        $default
+    );
     $settings->add($setting);
 
-    // Group 2
+    // Group 2.
     $name = new lang_string('librarygroup2', 'atto_equation');
     $desc = new lang_string('librarygroup2_desc', 'atto_equation');
     $default = '
@@ -95,13 +97,15 @@ if ($ADMIN->fulltree) {
 \Downarrow
 \Leftrightarrow
 ';
-    $setting = new admin_setting_configtextarea('atto_equation/librarygroup2',
-                                                $name,
-                                                $desc,
-                                                $default);
+    $setting = new admin_setting_configtextarea(
+        'atto_equation/librarygroup2',
+        $name,
+        $desc,
+        $default
+    );
     $settings->add($setting);
 
-    // Group 3
+    // Group 3.
     $name = new lang_string('librarygroup3', 'atto_equation');
     $desc = new lang_string('librarygroup3_desc', 'atto_equation');
     $default = '
@@ -140,13 +144,15 @@ if ($ADMIN->fulltree) {
 \Psi
 \Omega
 ';
-    $setting = new admin_setting_configtextarea('atto_equation/librarygroup3',
-                                                $name,
-                                                $desc,
-                                                $default);
+    $setting = new admin_setting_configtextarea(
+        'atto_equation/librarygroup3',
+        $name,
+        $desc,
+        $default
+    );
     $settings->add($setting);
 
-    // Group 4
+    // Group 4.
     $name = new lang_string('librarygroup4', 'atto_equation');
     $desc = new lang_string('librarygroup4_desc', 'atto_equation');
     $default = '
@@ -166,10 +172,11 @@ if ($ADMIN->fulltree) {
 {a \brack b}
 {a \brace b}
 ';
-    $setting = new admin_setting_configtextarea('atto_equation/librarygroup4',
-                                                $name,
-                                                $desc,
-                                                $default);
+    $setting = new admin_setting_configtextarea(
+        'atto_equation/librarygroup4',
+        $name,
+        $desc,
+        $default
+    );
     $settings->add($setting);
-
 }

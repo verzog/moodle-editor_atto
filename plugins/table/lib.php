@@ -22,15 +22,14 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Initialise the js strings required for this module.
  */
 function atto_table_strings_for_js() {
     global $PAGE;
 
-    $PAGE->requires->strings_for_js(array('createtable',
+    $PAGE->requires->strings_for_js(
+        ['createtable',
                                           'updatetable',
                                           'appearance',
                                           'headers',
@@ -63,12 +62,15 @@ function atto_table_strings_for_js() {
                                           'themedefault',
                                           'dotted',
                                           'dashed',
-                                          'solid'),
-                                    'atto_table');
+                                          'solid'],
+        'atto_table'
+    );
 
-    $PAGE->requires->strings_for_js(array('top',
-                                          'bottom'),
-                                    'editor');
+    $PAGE->requires->strings_for_js(
+        ['top',
+                                          'bottom'],
+        'editor'
+    );
 }
 
 /**
@@ -78,8 +80,8 @@ function atto_table_strings_for_js() {
  * @param string $foptions
  */
 function atto_table_params_for_js($elementid, $options, $foptions) {
-    $params = array('allowBorders' => (bool) get_config('atto_table', 'allowborders'),
+    $params = ['allowBorders' => (bool) get_config('atto_table', 'allowborders'),
                     'allowWidth' => (bool) get_config('atto_table', 'allowwidth'),
-                    'allowBackgroundColour' => (bool) get_config('atto_table', 'allowbackgroundcolour'));
+                    'allowBackgroundColour' => (bool) get_config('atto_table', 'allowbackgroundcolour')];
     return $params;
 }

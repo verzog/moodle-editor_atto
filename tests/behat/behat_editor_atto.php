@@ -39,7 +39,6 @@ require_once(__DIR__ . '/../../../../behat/classes/settable_editor.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class behat_editor_atto extends behat_base implements \core_behat\settable_editor {
-
     /**
      * Set the value for the editor.
      *

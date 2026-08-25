@@ -22,13 +22,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Screenreader helper';
-$string['liststyles'] = 'Styles for current selection:';
-$string['nostyles'] = 'No styles';
-$string['listlinks'] = 'Links in text editor:';
-$string['nolinks'] = 'No links';
-$string['selectlink'] = 'Select link';
 $string['listimages'] = 'Images in text editor:';
+$string['listlinks'] = 'Links in text editor:';
+$string['liststyles'] = 'Styles for current selection:';
 $string['noimages'] = 'No images';
-$string['selectimage'] = 'Select image';
+$string['nolinks'] = 'No links';
+$string['nostyles'] = 'No styles';
+$string['pluginname'] = 'Screenreader helper';
 $string['privacy:metadata'] = 'The atto_accessibilityhelper plugin does not store any personal data.';
+$string['selectimage'] = 'Select image';
+$string['selectlink'] = 'Select link';

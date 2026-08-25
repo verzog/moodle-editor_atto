@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->libdir."/formslib.php");
+require_once($CFG->libdir . "/formslib.php");
 
 /**
  * Form allowing to edit files in one draft area.
@@ -36,7 +36,9 @@ require_once($CFG->libdir."/formslib.php");
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class atto_managefiles_manage_form extends moodleform {
-
+    /**
+     * Form definition.
+     */
     public function definition() {
         global $PAGE, $USER;
         $mform = $this->_form;
@@ -72,39 +74,54 @@ class atto_managefiles_manage_form extends moodleform {
 
         // Let the user know that any drafts not referenced in the text will be removed automatically.
         if ($removeorphaneddrafts) {
-            $mform->addElement('static', '', '',
-                html_writer::tag('div', get_string('unusedfilesremovalnotice', 'atto_managefiles')));
+            $mform->addElement(
+                'static',
+                '',
+                '',
+                html_writer::tag('div', get_string('unusedfilesremovalnotice', 'atto_managefiles'))
+            );
         }
 
         $mform->addElement('header', 'missingfileshdr', get_string('missingfiles', 'atto_managefiles'));
-        $mform->addElement('static', '', '',
-            html_writer::tag('div',
+        $mform->addElement(
+            'static',
+            '',
+            '',
+            html_writer::tag(
+                'div',
                 html_writer::tag('div', get_string('hasmissingfiles', 'atto_managefiles')) .
-                html_writer::tag('div', '', array('class' => 'missing-files')
-            ),
-            array('class' => 'file-status'))
+                html_writer::tag('div', '', ['class' => 'missing-files']),
+                ['class' => 'file-status']
+            )
         );
 
         $mform->addElement('header', 'deletefileshdr', get_string('unusedfilesheader', 'atto_managefiles'));
-        $mform->addElement('static', '', '',
-            html_writer::tag('div', get_string('unusedfilesdesc', 'atto_managefiles')));
+        $mform->addElement(
+            'static',
+            '',
+            '',
+            html_writer::tag('div', get_string('unusedfilesdesc', 'atto_managefiles'))
+        );
 
         foreach ($files as $hash => $file) {
-            $mform->addElement('checkbox', 'deletefile[' . $hash . ']', '', $file, array('data-filename' => $file));
+            $mform->addElement('checkbox', 'deletefile[' . $hash . ']', '', $file, ['data-filename' => $file]);
             $mform->setType('deletefile[' . $hash . ']', PARAM_INT);
         }
 
         $mform->addElement('submit', 'delete', get_string('deleteselected', 'atto_managefiles'));
 
-        $PAGE->requires->yui_module('moodle-atto_managefiles-usedfiles', 'M.atto_managefiles.usedfiles.init',
-            array(array(
+        $PAGE->requires->yui_module(
+            'moodle-atto_managefiles-usedfiles',
+            'M.atto_managefiles.usedfiles.init',
+            [[
                 'files' => array_flip($files),
                 'usercontext' => context_user::instance($USER->id)->id,
                 'itemid' => $itemid,
                 'elementid' => $elementid,
-            )));
+            ]]
+        );
 
-        $this->set_data(array(
+        $this->set_data([
             'files_filemanager' => $itemid,
             'itemid' => $itemid,
             'elementid' => $elementid,
@@ -114,6 +131,6 @@ class atto_managefiles_manage_form extends moodleform {
             'accepted_types' => $options['accepted_types'],
             'return_types' => $options['return_types'],
             'context' => $options['context']->id,
-        ));
+        ]);
     }
 }

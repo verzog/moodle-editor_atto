@@ -24,15 +24,13 @@
 
 namespace editor_atto\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
-use \core_privacy\local\request\approved_contextlist;
-use \core_privacy\local\request\writer;
-use \core_privacy\local\request\helper;
-use \core_privacy\local\request\deletion_criteria;
-use \core_privacy\local\metadata\collection;
-use \core_privacy\local\request\userlist;
-use \core_privacy\local\request\approved_userlist;
+use core_privacy\local\request\approved_contextlist;
+use core_privacy\local\request\writer;
+use core_privacy\local\request\helper;
+use core_privacy\local\request\deletion_criteria;
+use core_privacy\local\metadata\collection;
+use core_privacy\local\request\userlist;
+use core_privacy\local\request\approved_userlist;
 
 /**
  * Privacy Subsystem implementation for editor_atto.
@@ -41,13 +39,12 @@ use \core_privacy\local\request\approved_userlist;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements
-        // The Atto editor stores user provided data.
-        \core_privacy\local\metadata\provider,
-        // The Atto editor provides data directly to core.
-        \core_privacy\local\request\plugin\provider,
-        // The Atto editor is capable of determining which users have data within it.
-        \core_privacy\local\request\core_userlist_provider {
-
+    // The Atto editor stores user provided data.
+    \core_privacy\local\metadata\provider,
+    // The Atto editor is capable of determining which users have data within it.
+    \core_privacy\local\request\core_userlist_provider,
+    // The Atto editor provides data directly to core.
+    \core_privacy\local\request\plugin\provider {
     /**
      * Returns information about how editor_atto stores its data.
      *
@@ -98,7 +95,7 @@ class provider implements
         $context = $userlist->get_context();
 
         $params = [
-            'contextid' => $context->id
+            'contextid' => $context->id,
         ];
 
         $sql = "SELECT userid
@@ -206,8 +203,11 @@ class provider implements
         [$useridsql, $useridsqlparams] = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED);
         $params = ['contextid' => $context->id] + $useridsqlparams;
 
-        $DB->delete_records_select('editor_atto_autosave', "contextid = :contextid AND userid {$useridsql}",
-            $params);
+        $DB->delete_records_select(
+            'editor_atto_autosave',
+            "contextid = :contextid AND userid {$useridsql}",
+            $params
+        );
     }
 
     /**
@@ -223,8 +223,11 @@ class provider implements
         [$contextsql, $contextparams] = $DB->get_in_or_equal($contextlist->get_contextids(), SQL_PARAMS_NAMED);
         $contextparams['userid'] = $user->id;
 
-        $DB->delete_records_select('editor_atto_autosave', "userid = :userid AND contextid {$contextsql}",
-                $contextparams);
+        $DB->delete_records_select(
+            'editor_atto_autosave',
+            "userid = :userid AND contextid {$contextsql}",
+            $contextparams
+        );
     }
 
     /**

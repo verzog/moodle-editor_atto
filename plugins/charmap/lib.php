@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Initialise the strings required for JS.
  *
@@ -35,7 +33,7 @@ function atto_charmap_strings_for_js() {
     // In order to prevent extra strings to be imported, comment/uncomment the characters
     // which are enabled in the JavaScript part of this plugin.
     $PAGE->requires->strings_for_js(
-        array(
+        [
             'amacron',
             'emacron',
             'imacron',
@@ -110,28 +108,13 @@ function atto_charmap_strings_for_js() {
             'narysumation',
             'infinity',
             'squareroot',
-            // 'similarto',
-            // 'approximatelyequalto',
             'almostequalto',
             'notequalto',
             'identicalto',
-            // 'elementof',
-            // 'notanelementof',
-            // 'containsasmember',
             'naryproduct',
-            // 'logicaland',
-            // 'logicalor',
             'notsign',
             'intersection',
-            // 'union',
             'partialdifferential',
-            // 'forall',
-            // 'thereexists',
-            // 'diameter',
-            // 'backwarddifference',
-            // 'asteriskoperator',
-            // 'proportionalto',
-            // 'angle',
             'acuteaccent',
             'cedilla',
             'feminineordinalindicator',
@@ -253,54 +236,17 @@ function atto_charmap_strings_for_js() {
             'chi',
             'psi',
             'omega',
-            // 'alefsymbol',
-            // 'pisymbol',
-            // 'realpartsymbol',
-            // 'thetasymbol',
-            // 'upsilonhooksymbol',
-            // 'weierstrassp',
-            // 'imaginarypart',
             'leftwardsarrow',
             'upwardsarrow',
             'rightwardsarrow',
             'downwardsarrow',
             'leftrightarrow',
-            // 'carriagereturn',
-            // 'leftwardsdoublearrow',
-            // 'upwardsdoublearrow',
-            // 'rightwardsdoublearrow',
-            // 'downwardsdoublearrow',
-            // 'leftrightdoublearrow',
-            // 'therefore',
-            // 'subsetof',
-            // 'supersetof',
-            // 'notasubsetof',
-            // 'subsetoforequalto',
-            // 'supersetoforequalto',
-            // 'circledplus',
-            // 'circledtimes',
-            // 'perpendicular',
-            // 'dotoperator',
-            // 'leftceiling',
-            // 'rightceiling',
-            // 'leftfloor',
-            // 'rightfloor',
-            // 'leftpointinganglebracket',
-            // 'rightpointinganglebracket',
             'lozenge',
             'blackspadesuit',
             'blackclubsuit',
             'blackheartsuit',
             'blackdiamondsuit',
-            // 'enspace',
-            // 'emspace',
-            // 'thinspace',
-            // 'zerowidthnonjoiner',
-            // 'zerowidthjoiner',
-            // 'lefttorightmark',
-            // 'righttoleftmark',
-            // 'softhyphen',
-        ),
+        ],
         'atto_charmap'
     );
 }

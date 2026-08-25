@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Initialise the js strings required for this module.
  */
@@ -36,6 +34,6 @@ function atto_backcolor_strings_for_js() {
         'color_yellow',
         'color_green',
         'color_blue',
-        'color_black'
+        'color_black',
     ], 'atto_backcolor');
 }

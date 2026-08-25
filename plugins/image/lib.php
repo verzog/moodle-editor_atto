@@ -22,15 +22,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Initialise the strings required for js
  */
 function atto_image_strings_for_js() {
     global $PAGE;
 
-    $strings = array(
+    $strings = [
         'alignment',
         'alignment_bottom',
         'alignment_left',
@@ -51,8 +49,7 @@ function atto_image_strings_for_js() {
         'size',
         'width',
         'uploading',
-    );
+    ];
 
     $PAGE->requires->strings_for_js($strings, 'atto_image');
 }
-

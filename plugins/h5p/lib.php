@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 use core_h5p\local\library\autoloader;
 
 /**
@@ -53,7 +51,7 @@ function atto_h5p_params_for_js($elementid, $options, $fpoptions) {
 
     $params = [
         'allowedmethods' => $allowedmethods,
-        'storeinrepo' => true
+        'storeinrepo' => true,
     ];
     return $params;
 }
@@ -64,7 +62,7 @@ function atto_h5p_params_for_js($elementid, $options, $fpoptions) {
 function atto_h5p_strings_for_js() {
     global $PAGE;
 
-    $strings = array(
+    $strings = [
         'browserepositories',
         'copyrightbutton',
         'downloadbutton',
@@ -76,8 +74,8 @@ function atto_h5p_strings_for_js() {
         'h5pfileorurl',
         'invalidh5purl',
         'noh5pcontent',
-        'pluginname'
-    );
+        'pluginname',
+    ];
 
     $PAGE->requires->strings_for_js($strings, 'atto_h5p');
     $PAGE->requires->strings_for_js(['expand', 'collapse'], 'moodle');

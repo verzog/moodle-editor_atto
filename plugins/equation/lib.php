@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Get the list of strings for this plugin.
  * @param string $elementid
@@ -31,7 +29,8 @@ defined('MOODLE_INTERNAL') || die();
 function atto_equation_strings_for_js() {
     global $PAGE;
 
-    $PAGE->requires->strings_for_js(array('saveequation',
+    $PAGE->requires->strings_for_js(
+        ['saveequation',
                                           'editequation',
                                           'preview',
                                           'cursorinfo',
@@ -39,8 +38,9 @@ function atto_equation_strings_for_js() {
                                           'librarygroup1',
                                           'librarygroup2',
                                           'librarygroup3',
-                                          'librarygroup4'),
-                                    'atto_equation');
+                                          'librarygroup4'],
+        'atto_equation'
+    );
 }
 
 /**
@@ -67,27 +67,27 @@ function atto_equation_params_for_js($elementid, $options, $fpoptions) {
     $context = $options['context'];
 
     // Tex example librarys.
-    $library = array(
-            'group1' => array(
+    $library = [
+            'group1' => [
                 'groupname' => 'librarygroup1',
                 'elements' => get_config('atto_equation', 'librarygroup1'),
                 'active' => true,
-            ),
-            'group2' => array(
+            ],
+            'group2' => [
                 'groupname' => 'librarygroup2',
                 'elements' => get_config('atto_equation', 'librarygroup2'),
-            ),
-            'group3' => array(
+            ],
+            'group3' => [
                 'groupname' => 'librarygroup3',
                 'elements' => get_config('atto_equation', 'librarygroup3'),
-            ),
-            'group4' => array(
+            ],
+            'group4' => [
                 'groupname' => 'librarygroup4',
                 'elements' => get_config('atto_equation', 'librarygroup4'),
-            ));
+            ]];
 
-    return array('texfilteractive' => $texfilteractive,
+    return ['texfilteractive' => $texfilteractive,
                  'contextid' => $context->id,
                  'library' => $library,
-                 'texdocsurl' => get_docs_url('Using_TeX_Notation'));
+                 'texdocsurl' => get_docs_url('Using_TeX_Notation')];
 }

@@ -28,5 +28,5 @@ $string['h5'] = 'Heading (small)';
 $string['p'] = 'Paragraph';
 $string['pluginname'] = 'Paragraph styles';
 $string['pre'] = 'Pre-formatted';
-$string['title'] = 'Paragraph styles';
 $string['privacy:metadata'] = 'The atto_title plugin does not store any personal data.';
+$string['title'] = 'Paragraph styles';

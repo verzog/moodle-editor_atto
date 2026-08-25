@@ -24,8 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2026082500;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2026082501;        // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2024100100;        // Requires this Moodle version.
 $plugin->component = 'editor_atto';  // Full name of the plugin (used for diagnostics).
 $plugin->maturity  = MATURITY_STABLE;   // This is a stable, production-ready release.
-$plugin->release   = '1.0.0';           // First release maintained outside Moodle core.
+$plugin->release   = '1.0.1';           // Maintained outside Moodle core.

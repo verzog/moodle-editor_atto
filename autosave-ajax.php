@@ -28,7 +28,7 @@ require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->libdir . '/filestorage/file_storage.php');
 
 // Clean up actions.
-$actions = array_map(function($actionparams) {
+$actions = array_map(function ($actionparams) {
     $action = $actionparams['action'] ?? null;
     $params = [];
     $keys = [
@@ -78,7 +78,6 @@ if (!in_array('atto', explode(',', get_config('core', 'texteditors')))) {
 
 $responses = [];
 foreach ($actions as $actionparams) {
-
     $action = $actionparams['action'];
     $contextid = $actionparams['contextid'];
     $elementid = $actionparams['elementid'];
@@ -123,7 +122,6 @@ foreach ($actions as $actionparams) {
             $responses[] = null;
             continue;
         }
-
     } else if ($action == 'resume') {
         $params = [
             'elementid' => $elementid,
@@ -152,7 +150,6 @@ foreach ($actions as $actionparams) {
             // No response means no error.
             $responses[] = null;
             continue;
-
         } else {
             // Copy all draft files from the old draft area.
             $usercontext = \core\context\user::instance($USER->id);
@@ -173,21 +170,25 @@ foreach ($actions as $actionparams) {
             if (!$stale) {
                 // This function copies all the files in one draft area, to another area (in this case it's
                 // another draft area). It also rewrites the text to @@PLUGINFILE@@ links.
-                $newdrafttext = file_save_draft_area_files($record->draftid,
-                                                           $usercontext->id,
-                                                           'user',
-                                                           'draft',
-                                                           $newdraftid,
-                                                           [],
-                                                           $record->drafttext);
+                $newdrafttext = file_save_draft_area_files(
+                    $record->draftid,
+                    $usercontext->id,
+                    'user',
+                    'draft',
+                    $newdraftid,
+                    [],
+                    $record->drafttext
+                );
 
                 // Final rewrite to the new draft area (convert the @@PLUGINFILES@@ again).
-                $newdrafttext = file_rewrite_pluginfile_urls($newdrafttext,
-                                                             'draftfile.php',
-                                                             $usercontext->id,
-                                                             'user',
-                                                             'draft',
-                                                             $newdraftid);
+                $newdrafttext = file_rewrite_pluginfile_urls(
+                    $newdrafttext,
+                    'draftfile.php',
+                    $usercontext->id,
+                    'user',
+                    'draft',
+                    $newdraftid
+                );
                 $record->drafttext = $newdrafttext;
 
                 $record->pageinstance = $pageinstance;
@@ -197,7 +198,6 @@ foreach ($actions as $actionparams) {
 
                 // A response means the draft has been restored and here is the auto-saved text.
                 $responses[] = ['result' => $record->drafttext];
-
             } else {
                 $DB->delete_records('editor_atto_autosave', ['id' => $record->id]);
 
@@ -206,7 +206,6 @@ foreach ($actions as $actionparams) {
             }
             continue;
         }
-
     } else if ($action == 'reset') {
         $params = [
             'elementid' => $elementid,
