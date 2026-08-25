@@ -86,6 +86,10 @@ class atto_texteditor extends texteditor {
     public function use_editor($elementid, ?array $options=null, $fpoptions=null) {
         global $PAGE;
 
+        // The signature allows a null $options, but the body dereferences it as an array
+        // (array_key_exists(), $options['context'], ...). Guard against a fatal TypeError on PHP 8+.
+        $options = $options ?? [];
+
         if (array_key_exists('atto:toolbar', $options)) {
             $configstr = $options['atto:toolbar'];
         } else {
