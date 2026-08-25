@@ -28,8 +28,7 @@ $ADMIN->add('editorsettings', new admin_category('editoratto', $editor->displayn
 
 $settings = new admin_settingpage('editorsettingsatto', new lang_string('settings', 'editor_atto'));
 if ($ADMIN->fulltree) {
-    require_once(__DIR__ . '/adminlib.php');
-    $settings->add(new editor_atto_subplugins_setting());
+    $settings->add(new \editor_atto\admin\subplugins_setting());
     $name = new lang_string('toolbarconfig', 'editor_atto');
     $desc = new lang_string('toolbarconfig_desc', 'editor_atto');
     $default = 'collapse = collapse
@@ -43,7 +42,7 @@ align = align
 insert = equation, charmap, table, clear
 undo = undo
 other = html';
-    $setting = new editor_atto_toolbar_setting('editor_atto/toolbar', $name, $desc, $default);
+    $setting = new \editor_atto\admin\toolbar_setting('editor_atto/toolbar', $name, $desc, $default);
 
     $settings->add($setting);
 }
