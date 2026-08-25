@@ -23,7 +23,7 @@
  */
 namespace editor_atto\task;
 
-use \core\task\scheduled_task;
+use core\task\scheduled_task;
 
 /**
  * Simple task to run the autosave cleanup task.
@@ -33,7 +33,6 @@ use \core\task\scheduled_task;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class autosave_cleanup_task extends scheduled_task {
-
     /**
      * Get a descriptive name for this task (shown to admins).
      *
@@ -56,7 +55,6 @@ class autosave_cleanup_task extends scheduled_task {
         // this is impossible to guarantee).
         $before = $now - (4 * DAYSECS);
 
-        $DB->delete_records_select('editor_atto_autosave', 'timemodified < :before', array('before' => $before));
+        $DB->delete_records_select('editor_atto_autosave', 'timemodified < :before', ['before' => $before]);
     }
-
 }

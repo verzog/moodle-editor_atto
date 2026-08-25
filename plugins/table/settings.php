@@ -32,27 +32,33 @@ if ($ADMIN->fulltree) {
     $desc = new lang_string('allowborder_desc', 'atto_table');
     $default = 0;
 
-    $setting = new admin_setting_configcheckbox('atto_table/allowborders',
-                                                $name,
-                                                $desc,
-                                                $default);
+    $setting = new admin_setting_configcheckbox(
+        'atto_table/allowborders',
+        $name,
+        $desc,
+        $default
+    );
     $settings->add($setting);
 
     $name = new lang_string('allowbackgroundcolour', 'atto_table');
     $default = 0;
 
-    $setting = new admin_setting_configcheckbox('atto_table/allowbackgroundcolour',
-                                                $name,
-                                                '',
-                                                $default);
+    $setting = new admin_setting_configcheckbox(
+        'atto_table/allowbackgroundcolour',
+        $name,
+        '',
+        $default
+    );
     $settings->add($setting);
 
     $name = new lang_string('allowwidth', 'atto_table');
     $default = 0;
 
-    $setting = new admin_setting_configcheckbox('atto_table/allowwidth',
-                                                $name,
-                                                '',
-                                                $default);
+    $setting = new admin_setting_configcheckbox(
+        'atto_table/allowwidth',
+        $name,
+        '',
+        $default
+    );
     $settings->add($setting);
 }

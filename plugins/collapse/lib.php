@@ -22,15 +22,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Initialise the js strings required for this module.
  */
 function atto_collapse_strings_for_js() {
     global $PAGE;
 
-    $PAGE->requires->strings_for_js(array('showmore', 'showfewer', 'youareonsecondrow'), 'atto_collapse');
+    $PAGE->requires->strings_for_js(['showmore', 'showfewer', 'youareonsecondrow'], 'atto_collapse');
 }
 
 /**
@@ -39,7 +37,7 @@ function atto_collapse_strings_for_js() {
  */
 function atto_collapse_params_for_js($elementid, $options, $fpoptions) {
     // Pass the number of visible groups as a param.
-    $params = array('showgroups' => get_config('atto_collapse', 'showgroups'));
+    $params = ['showgroups' => get_config('atto_collapse', 'showgroups')];
     return $params;
 }
 

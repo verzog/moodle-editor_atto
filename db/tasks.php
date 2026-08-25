@@ -31,14 +31,14 @@ defined('MOODLE_INTERNAL') || die();
 
 /* List of handlers */
 
-$tasks = array(
-    array(
+$tasks = [
+    [
         'classname' => 'editor_atto\task\autosave_cleanup_task',
         'blocking' => 0,
         'minute' => 'R',
         'hour' => 'R',
         'day' => '*',
         'dayofweek' => 'R',
-        'month' => '*'
-    )
-);
+        'month' => '*',
+    ],
+];

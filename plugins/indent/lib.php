@@ -17,12 +17,10 @@
 /**
  * Atto text editor align plugin lib.
  *
- * @package    atto_align
+ * @package    atto_indent
  * @copyright  2014 Jason Fowler
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Initialise the strings required for JS.
@@ -31,5 +29,5 @@ defined('MOODLE_INTERNAL') || die();
  */
 function atto_indent_strings_for_js() {
     global $PAGE;
-    $PAGE->requires->strings_for_js(array('indent', 'outdent'), 'atto_indent');
+    $PAGE->requires->strings_for_js(['indent', 'outdent'], 'atto_indent');
 }

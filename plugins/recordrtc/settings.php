@@ -33,11 +33,11 @@ $ADMIN->add('editoratto', new admin_category('atto_recordrtc', new lang_string('
 
 if ($ADMIN->fulltree) {
     // Types allowed.
-    $options = array(
+    $options = [
         'both' => new lang_string('audioandvideo', 'atto_recordrtc'),
         'audio' => new lang_string('onlyaudio', 'atto_recordrtc'),
-        'video' => new lang_string('onlyvideo', 'atto_recordrtc')
-    );
+        'video' => new lang_string('onlyvideo', 'atto_recordrtc'),
+    ];
     $name = get_string('allowedtypes', 'atto_recordrtc');
     $desc = get_string('allowedtypes_desc', 'atto_recordrtc');
     $default = 'both';
@@ -63,7 +63,7 @@ if ($ADMIN->fulltree) {
     $desc = get_string('audiotimelimit_desc', 'atto_recordrtc');
     // Validate audiotimelimit greater than 0.
     $setting = new admin_setting_configduration('atto_recordrtc/audiotimelimit', $name, $desc, DEFAULT_TIME_LIMIT);
-    $setting->set_validate_function(function(int $value): string {
+    $setting->set_validate_function(function (int $value): string {
         if ($value <= 0) {
             return get_string('timelimitwarning', 'atto_recordrtc');
         }
@@ -76,7 +76,7 @@ if ($ADMIN->fulltree) {
     $desc = get_string('videotimelimit_desc', 'atto_recordrtc');
     // Validate videotimelimit greater than 0.
     $setting = new admin_setting_configduration('atto_recordrtc/videotimelimit', $name, $desc, DEFAULT_TIME_LIMIT);
-    $setting->set_validate_function(function(int $value): string {
+    $setting->set_validate_function(function (int $value): string {
         if ($value <= 0) {
             return get_string('timelimitwarning', 'atto_recordrtc');
         }

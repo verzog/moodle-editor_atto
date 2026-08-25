@@ -47,18 +47,21 @@ if ($normal !== '' || $special !== '') {
     echo html_writer::end_div();
 } else {
     // Create a form.
-    echo html_writer::start_tag('form', array('method' => 'post', 'action' => 'custom_toolbar_example.php'));
+    echo html_writer::start_tag('form', ['method' => 'post', 'action' => 'custom_toolbar_example.php']);
     echo html_writer::start_div();
 
     // Basic editor options.
-    $options = array();
+    $options = [];
     $atto = new atto_texteditor();
 
     // Normal Atto.
     echo html_writer::start_div('normaldiv');
     echo $OUTPUT->heading('Normal Atto');
-    echo html_writer::div(html_writer::tag('textarea', '',
-            array('id' => 'normaleditor', 'name' => 'normaleditor', 'rows' => 10)));
+    echo html_writer::div(html_writer::tag(
+        'textarea',
+        '',
+        ['id' => 'normaleditor', 'name' => 'normaleditor', 'rows' => 10]
+    ));
     $atto->use_editor('normaleditor', $options);
     echo html_writer::end_div();
 
@@ -69,13 +72,16 @@ style1 = bold, italic
 list = unorderedlist, orderedlist
 EOT;
     echo $OUTPUT->heading('Special Atto');
-    echo html_writer::div(html_writer::tag('textarea', '',
-            array('id' => 'specialeditor', 'name' => 'specialeditor', 'rows' => 10)));
+    echo html_writer::div(html_writer::tag(
+        'textarea',
+        '',
+        ['id' => 'specialeditor', 'name' => 'specialeditor', 'rows' => 10]
+    ));
     $atto->use_editor('specialeditor', $options);
     echo html_writer::end_div();
 
     // Button to submit form.
-    echo html_writer::start_div('', array('style' => 'margin-top: 20px'));
+    echo html_writer::start_div('', ['style' => 'margin-top: 20px']);
     echo html_writer::tag('button', 'Submit and see the HTML');
     echo html_writer::end_div();
 

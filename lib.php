@@ -22,15 +22,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * This is the texteditor implementation.
  * @copyright  2013 Damyon Wiese  <damyon@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class atto_texteditor extends texteditor {
-
     /**
      * Is the current browser supported by this editor?
      *
@@ -83,7 +80,7 @@ class atto_texteditor extends texteditor {
      * @param array $options
      * @param null $fpoptions
      */
-    public function use_editor($elementid, ?array $options=null, $fpoptions=null) {
+    public function use_editor($elementid, ?array $options = null, $fpoptions = null) {
         global $PAGE;
 
         // The signature allows a null $options, but the body dereferences it as an array
@@ -98,7 +95,7 @@ class atto_texteditor extends texteditor {
 
         $grouplines = explode("\n", $configstr);
 
-        $groups = array();
+        $groups = [];
 
         foreach ($grouplines as $groupline) {
             $line = explode('=', $groupline);
@@ -117,7 +114,7 @@ class atto_texteditor extends texteditor {
             $groupplugins = [];
             foreach ($plugins as $plugin) {
                 // Do not die on missing plugin.
-                if (!core_component::get_component_directory('atto_' . $plugin))  {
+                if (!core_component::get_component_directory('atto_' . $plugin)) {
                     continue;
                 }
 
@@ -132,7 +129,7 @@ class atto_texteditor extends texteditor {
                 $modules[] = 'moodle-atto_' . $plugin . '-button';
 
                 component_callback('atto_' . $plugin, 'strings_for_js');
-                $extra = component_callback('atto_' . $plugin, 'params_for_js', array($elementid, $options, $fpoptions));
+                $extra = component_callback('atto_' . $plugin, 'params_for_js', [$elementid, $options, $fpoptions]);
 
                 if ($extra) {
                     $jsplugin = array_merge($jsplugin, $extra);
@@ -158,10 +155,11 @@ class atto_texteditor extends texteditor {
                 'warning',
                 'info',
             ], 'moodle');
-        $PAGE->requires->yui_module($modules,
-                                    'Y.M.editor_atto.Editor.init',
-                                    array($this->get_init_params($elementid, $options, $fpoptions, $jsplugins)));
-
+        $PAGE->requires->yui_module(
+            $modules,
+            'Y.M.editor_atto.Editor.init',
+            [$this->get_init_params($elementid, $options, $fpoptions, $jsplugins)]
+        );
     }
 
     /**

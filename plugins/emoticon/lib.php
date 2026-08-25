@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Initialise the strings required for JS.
  *
@@ -32,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
 function atto_emoticon_strings_for_js() {
     global $PAGE;
 
-    $PAGE->requires->strings_for_js(array('insertemoticon'), 'atto_emoticon');
+    $PAGE->requires->strings_for_js(['insertemoticon'], 'atto_emoticon');
 
     // Load the strings required by the emotes.
     $manager = get_emoticon_manager();
@@ -48,7 +46,7 @@ function atto_emoticon_strings_for_js() {
  */
 function atto_emoticon_params_for_js($elementid, $options, $fpoptions) {
     $manager = get_emoticon_manager();
-    return array(
-        'emoticons' => $manager->get_emoticons(true)
-    );
+    return [
+        'emoticons' => $manager->get_emoticons(true),
+    ];
 }

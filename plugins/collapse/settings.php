@@ -34,10 +34,12 @@ if ($ADMIN->fulltree) {
     $default = 6;
     $options = array_combine(range(1, 20), range(1, 20));
 
-    $setting = new admin_setting_configselect('atto_collapse/showgroups',
-                                              $name,
-                                              $desc,
-                                              $default,
-                                              $options);
+    $setting = new admin_setting_configselect(
+        'atto_collapse/showgroups',
+        $name,
+        $desc,
+        $default,
+        $options
+    );
     $settings->add($setting);
 }

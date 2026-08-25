@@ -24,8 +24,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Default maximum recording length allowed for the audio/video clips.
  */
@@ -72,7 +70,7 @@ function atto_recordrtc_params_for_js($elementid, $options, $fpoptions) {
     }
     $audiortcicon = 'i/audiortc';
     $videortcicon = 'i/videortc';
-    $params = array('contextid' => $context->id,
+    $params = ['contextid' => $context->id,
                     'sesskey' => $sesskey,
                     'allowedtypes' => $allowedtypes,
                     'audiobitrate' => $audiobitrate,
@@ -82,8 +80,8 @@ function atto_recordrtc_params_for_js($elementid, $options, $fpoptions) {
                     'defaulttimelimit' => DEFAULT_TIME_LIMIT,
                     'audiortcicon' => $audiortcicon,
                     'videortcicon' => $videortcicon,
-                    'maxrecsize' => $maxrecsize
-              );
+                    'maxrecsize' => $maxrecsize,
+              ];
 
     return $params;
 }
@@ -94,7 +92,7 @@ function atto_recordrtc_params_for_js($elementid, $options, $fpoptions) {
 function atto_recordrtc_strings_for_js() {
     global $PAGE;
 
-    $strings = array('audiortc',
+    $strings = ['audiortc',
                      'videortc',
                      'nowebrtc_title',
                      'nowebrtc',
@@ -128,8 +126,8 @@ function atto_recordrtc_strings_for_js() {
                      'uploadprogress',
                      'uploadfailed',
                      'uploadfailed404',
-                     'uploadaborted'
-               );
+                     'uploadaborted',
+               ];
 
     $PAGE->requires->strings_for_js($strings, 'atto_recordrtc');
 }

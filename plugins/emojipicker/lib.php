@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Initialise the strings required for JS.
  *
@@ -43,6 +41,6 @@ function atto_emojipicker_params_for_js() {
     global $CFG;
 
     return [
-        'disabled' => empty($CFG->allowemojipicker) ? true : false
+        'disabled' => empty($CFG->allowemojipicker) ? true : false,
     ];
 }

@@ -64,4 +64,3 @@ foreach (core_plugin_manager::instance()->get_plugins_of_type('atto') as $plugin
 // Required or the editor plugininfo will add this section twice.
 unset($settings);
 $settings = null;
-

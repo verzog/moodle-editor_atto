@@ -28,7 +28,8 @@
 function atto_media_strings_for_js() {
     global $PAGE;
 
-    $PAGE->requires->strings_for_js(array('add',
+    $PAGE->requires->strings_for_js(
+        ['add',
                                           'addcaptionstrack',
                                           'addchapterstrack',
                                           'adddescriptionstrack',
@@ -78,9 +79,10 @@ function atto_media_strings_for_js() {
                                           'videoheight',
                                           'videosourcelabel',
                                           'videowidth',
-                                          'width'),
-                                          'atto_media');
-    $PAGE->requires->strings_for_js(array('expand', 'collapse'), 'moodle');
+                                          'width'],
+        'atto_media'
+    );
+    $PAGE->requires->strings_for_js(['expand', 'collapse'], 'moodle');
 }
 
 /**
@@ -96,14 +98,14 @@ function atto_media_params_for_js() {
     $langsavailable = get_string_manager()->get_list_of_languages();
     $params = [
         'langs' => ['installed' => [], 'available' => []],
-        'help' => []
+        'help' => [],
     ];
 
     foreach ($langsinstalled as $code => $name) {
         $params['langs']['installed'][] = [
             'lang' => $name,
             'code' => $code,
-            'default' => $currentlang == $code
+            'default' => $currentlang == $code,
         ];
     }
 
@@ -121,7 +123,7 @@ function atto_media_params_for_js() {
         'captions' => $OUTPUT->help_icon('captions', 'atto_media'),
         'descriptions' => $OUTPUT->help_icon('descriptions', 'atto_media'),
         'chapters' => $OUTPUT->help_icon('chapters', 'atto_media'),
-        'metadata' => $OUTPUT->help_icon('metadata', 'atto_media')
+        'metadata' => $OUTPUT->help_icon('metadata', 'atto_media'),
     ];
 
     return $params;

@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Initialise the strings required for JS.
  *
@@ -31,7 +29,7 @@ defined('MOODLE_INTERNAL') || die();
  */
 function atto_managefiles_strings_for_js() {
     global $PAGE;
-    $PAGE->requires->strings_for_js(array('managefiles'), 'atto_managefiles');
+    $PAGE->requires->strings_for_js(['managefiles'], 'atto_managefiles');
 }
 
 /**
@@ -51,12 +49,14 @@ function atto_managefiles_params_for_js($elementid, $options, $fpoptions) {
             (!isset($options['maxfiles']) || $options['maxfiles'] == 0) ||
             (isset($options['return_types']) && !($options['return_types'] & ~FILE_EXTERNAL));
 
-    $params = array('disabled' => $disabled, 'area' => array(), 'usercontext' => null);
+    $params = ['disabled' => $disabled, 'area' => [], 'usercontext' => null];
 
     if (!$disabled) {
         $params['usercontext'] = context_user::instance($USER->id)->id;
-        foreach (array('itemid', 'context', 'areamaxbytes', 'maxbytes', 'subdirs', 'return_types',
-                       'removeorphaneddrafts') as $key) {
+        foreach (
+            ['itemid', 'context', 'areamaxbytes', 'maxbytes', 'subdirs', 'return_types',
+                       'removeorphaneddrafts'] as $key
+        ) {
             if (isset($options[$key])) {
                 if ($key === 'context' && is_object($options[$key])) {
                     // Just context id is enough.

@@ -32,7 +32,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class editor_atto_toolbar_setting extends admin_setting_configtextarea {
-
     /**
      * Validate data.
      *
@@ -94,7 +93,6 @@ class editor_atto_toolbar_setting extends admin_setting_configtextarea {
 
         return $result;
     }
-
 }
 
 /**
@@ -105,7 +103,6 @@ class editor_atto_toolbar_setting extends admin_setting_configtextarea {
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class editor_atto_subplugins_setting extends admin_setting {
-
     /**
      * Constructor.
      */
@@ -249,4 +246,3 @@ class editor_atto_subplugins_setting extends admin_setting {
         return highlight($query, $return);
     }
 }
-

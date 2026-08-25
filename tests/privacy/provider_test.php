@@ -24,8 +24,6 @@
  */
 namespace editor_atto\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 use core_privacy\local\request\writer;
 use core_privacy\local\request\approved_contextlist;
 use editor_atto\privacy\provider;
@@ -36,6 +34,7 @@ use core_privacy\local\request\approved_userlist;
  *
  * @copyright  2018 Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers     \editor_atto\privacy\provider
  */
 final class provider_test extends \core_privacy\tests\provider_testcase {
     /**
@@ -66,18 +65,44 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
 
         // Add a fake inline image to the original post.
 
-        $userdraftintro = $this->create_editor_draft($usercontext, $user->id,
-                'id_user_intro', 'text for test user at own context');
-        $userdraftdescription = $this->create_editor_draft($usercontext, $user->id,
-                'id_user_description', 'text for test user at own context');
-        $systemuserdraftintro = $this->create_editor_draft($systemcontext, $user->id,
-                'id_system_intro', 'text for test user at system context', 2);
-        $systemuserdraftdescription = $this->create_editor_draft($systemcontext, $user->id,
-                'id_system_description', 'text for test user at system context', 4);
-        $coursedraftintro = $this->create_editor_draft($coursecontext, $user->id,
-                'id_course_intro', 'text for test user at course context');
-        $coursedraftdescription = $this->create_editor_draft($coursecontext, $user->id,
-                'id_course_description', 'text for test user at course context');
+        $userdraftintro = $this->create_editor_draft(
+            $usercontext,
+            $user->id,
+            'id_user_intro',
+            'text for test user at own context'
+        );
+        $userdraftdescription = $this->create_editor_draft(
+            $usercontext,
+            $user->id,
+            'id_user_description',
+            'text for test user at own context'
+        );
+        $systemuserdraftintro = $this->create_editor_draft(
+            $systemcontext,
+            $user->id,
+            'id_system_intro',
+            'text for test user at system context',
+            2
+        );
+        $systemuserdraftdescription = $this->create_editor_draft(
+            $systemcontext,
+            $user->id,
+            'id_system_description',
+            'text for test user at system context',
+            4
+        );
+        $coursedraftintro = $this->create_editor_draft(
+            $coursecontext,
+            $user->id,
+            'id_course_intro',
+            'text for test user at course context'
+        );
+        $coursedraftdescription = $this->create_editor_draft(
+            $coursecontext,
+            $user->id,
+            'id_course_description',
+            'text for test user at course context'
+        );
 
         // Create some data as the other user too.
         $otherusercontextids = [];
@@ -89,18 +114,42 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $otherusercontextids[] = $systemcontext->id;
         $otherusercontextids[] = $coursecontext->id;
 
-        $otheruserdraftintro = $this->create_editor_draft($otherusercontext, $otheruser->id,
-                'id_user_intro', 'text for other user at own context');
-        $otheruserdraftdescription = $this->create_editor_draft($otherusercontext, $otheruser->id,
-                'id_user_description', 'text for other user at own context');
-        $systemotheruserdraftintro = $this->create_editor_draft($systemcontext, $otheruser->id,
-                'id_system_intro', 'text for other user at system context');
-        $systemotheruserdraftdescription = $this->create_editor_draft($systemcontext, $otheruser->id,
-                'id_system_description', 'text for other user at system context');
-        $courseotheruserdraftintro = $this->create_editor_draft($coursecontext, $otheruser->id,
-                'id_course_intro', 'text for other user at course context');
-        $courseotheruserdraftdescription = $this->create_editor_draft($coursecontext, $otheruser->id,
-                'id_course_description', 'text for other user at course context');
+        $otheruserdraftintro = $this->create_editor_draft(
+            $otherusercontext,
+            $otheruser->id,
+            'id_user_intro',
+            'text for other user at own context'
+        );
+        $otheruserdraftdescription = $this->create_editor_draft(
+            $otherusercontext,
+            $otheruser->id,
+            'id_user_description',
+            'text for other user at own context'
+        );
+        $systemotheruserdraftintro = $this->create_editor_draft(
+            $systemcontext,
+            $otheruser->id,
+            'id_system_intro',
+            'text for other user at system context'
+        );
+        $systemotheruserdraftdescription = $this->create_editor_draft(
+            $systemcontext,
+            $otheruser->id,
+            'id_system_description',
+            'text for other user at system context'
+        );
+        $courseotheruserdraftintro = $this->create_editor_draft(
+            $coursecontext,
+            $otheruser->id,
+            'id_course_intro',
+            'text for other user at course context'
+        );
+        $courseotheruserdraftdescription = $this->create_editor_draft(
+            $coursecontext,
+            $otheruser->id,
+            'id_course_description',
+            'text for other user at course context'
+        );
 
         // Test as the original user.
         // Get all context data for the original user.
@@ -128,16 +177,16 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $intro = $writer->get_data(array_merge($subcontextbase, [$systemuserdraftintro->id]));
         $fs = get_file_storage();
         $this->assertEquals(
-                format_text($systemuserdraftintro->drafttext, FORMAT_HTML, provider::get_filter_options()),
-                $intro->drafttext
-            );
+            format_text($systemuserdraftintro->drafttext, FORMAT_HTML, provider::get_filter_options()),
+            $intro->drafttext
+        );
         $this->assertCount(2, $writer->get_files(array_merge($subcontextbase, [$systemuserdraftintro->id])));
 
         $description = $writer->get_data(array_merge($subcontextbase, [$systemuserdraftdescription->id]));
         $this->assertEquals(
-                format_text($systemuserdraftdescription->drafttext, FORMAT_HTML, provider::get_filter_options()),
-                $description->drafttext
-            );
+            format_text($systemuserdraftdescription->drafttext, FORMAT_HTML, provider::get_filter_options()),
+            $description->drafttext
+        );
         $this->assertCount(4, $writer->get_files(array_merge($subcontextbase, [$systemuserdraftdescription->id])));
     }
 
@@ -169,18 +218,44 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
 
         // Add a fake inline image to the original post.
 
-        $userdraftintro = $this->create_editor_draft($usercontext, $user->id,
-                'id_user_intro', 'text for test user at own context');
-        $userdraftdescription = $this->create_editor_draft($usercontext, $user->id,
-                'id_user_description', 'text for test user at own context');
-        $systemuserdraftintro = $this->create_editor_draft($systemcontext, $user->id,
-                'id_system_intro', 'text for test user at system context', 2);
-        $systemuserdraftdescription = $this->create_editor_draft($systemcontext, $user->id,
-                'id_system_description', 'text for test user at system context', 4);
-        $coursedraftintro = $this->create_editor_draft($coursecontext, $user->id,
-                'id_course_intro', 'text for test user at course context');
-        $coursedraftdescription = $this->create_editor_draft($coursecontext, $user->id,
-                'id_course_description', 'text for test user at course context');
+        $userdraftintro = $this->create_editor_draft(
+            $usercontext,
+            $user->id,
+            'id_user_intro',
+            'text for test user at own context'
+        );
+        $userdraftdescription = $this->create_editor_draft(
+            $usercontext,
+            $user->id,
+            'id_user_description',
+            'text for test user at own context'
+        );
+        $systemuserdraftintro = $this->create_editor_draft(
+            $systemcontext,
+            $user->id,
+            'id_system_intro',
+            'text for test user at system context',
+            2
+        );
+        $systemuserdraftdescription = $this->create_editor_draft(
+            $systemcontext,
+            $user->id,
+            'id_system_description',
+            'text for test user at system context',
+            4
+        );
+        $coursedraftintro = $this->create_editor_draft(
+            $coursecontext,
+            $user->id,
+            'id_course_intro',
+            'text for test user at course context'
+        );
+        $coursedraftdescription = $this->create_editor_draft(
+            $coursecontext,
+            $user->id,
+            'id_course_description',
+            'text for test user at course context'
+        );
 
         // Create some data as the other user too.
         $otherusercontextids = [];
@@ -192,18 +267,42 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $otherusercontextids[] = $systemcontext->id;
         $otherusercontextids[] = $coursecontext->id;
 
-        $otheruserdraftintro = $this->create_editor_draft($otherusercontext, $otheruser->id,
-                'id_user_intro', 'text for other user at own context');
-        $otheruserdraftdescription = $this->create_editor_draft($otherusercontext, $otheruser->id,
-                'id_user_description', 'text for other user at own context');
-        $systemotheruserdraftintro = $this->create_editor_draft($systemcontext, $otheruser->id,
-                'id_system_intro', 'text for other user at system context');
-        $systemotheruserdraftdescription = $this->create_editor_draft($systemcontext, $otheruser->id,
-                'id_system_description', 'text for other user at system context');
-        $courseotheruserdraftintro = $this->create_editor_draft($coursecontext, $otheruser->id,
-                'id_course_intro', 'text for other user at course context');
-        $courseotheruserdraftdescription = $this->create_editor_draft($coursecontext, $otheruser->id,
-                'id_course_description', 'text for other user at course context');
+        $otheruserdraftintro = $this->create_editor_draft(
+            $otherusercontext,
+            $otheruser->id,
+            'id_user_intro',
+            'text for other user at own context'
+        );
+        $otheruserdraftdescription = $this->create_editor_draft(
+            $otherusercontext,
+            $otheruser->id,
+            'id_user_description',
+            'text for other user at own context'
+        );
+        $systemotheruserdraftintro = $this->create_editor_draft(
+            $systemcontext,
+            $otheruser->id,
+            'id_system_intro',
+            'text for other user at system context'
+        );
+        $systemotheruserdraftdescription = $this->create_editor_draft(
+            $systemcontext,
+            $otheruser->id,
+            'id_system_description',
+            'text for other user at system context'
+        );
+        $courseotheruserdraftintro = $this->create_editor_draft(
+            $coursecontext,
+            $otheruser->id,
+            'id_course_intro',
+            'text for other user at course context'
+        );
+        $courseotheruserdraftdescription = $this->create_editor_draft(
+            $coursecontext,
+            $otheruser->id,
+            'id_course_description',
+            'text for other user at course context'
+        );
 
         // Test deletion of the user context.
         $this->assertCount(2, $DB->get_records('editor_atto_autosave', ['contextid' => $usercontext->id]));
@@ -255,18 +354,44 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
 
         // Add a fake inline image to the original post.
 
-        $userdraftintro = $this->create_editor_draft($usercontext, $user->id,
-                'id_user_intro', 'text for test user at own context');
-        $userdraftdescription = $this->create_editor_draft($usercontext, $user->id,
-                'id_user_description', 'text for test user at own context');
-        $systemuserdraftintro = $this->create_editor_draft($systemcontext, $user->id,
-                'id_system_intro', 'text for test user at system context', 2);
-        $systemuserdraftdescription = $this->create_editor_draft($systemcontext, $user->id,
-                'id_system_description', 'text for test user at system context', 4);
-        $coursedraftintro = $this->create_editor_draft($coursecontext, $user->id,
-                'id_course_intro', 'text for test user at course context');
-        $coursedraftdescription = $this->create_editor_draft($coursecontext, $user->id,
-                'id_course_description', 'text for test user at course context');
+        $userdraftintro = $this->create_editor_draft(
+            $usercontext,
+            $user->id,
+            'id_user_intro',
+            'text for test user at own context'
+        );
+        $userdraftdescription = $this->create_editor_draft(
+            $usercontext,
+            $user->id,
+            'id_user_description',
+            'text for test user at own context'
+        );
+        $systemuserdraftintro = $this->create_editor_draft(
+            $systemcontext,
+            $user->id,
+            'id_system_intro',
+            'text for test user at system context',
+            2
+        );
+        $systemuserdraftdescription = $this->create_editor_draft(
+            $systemcontext,
+            $user->id,
+            'id_system_description',
+            'text for test user at system context',
+            4
+        );
+        $coursedraftintro = $this->create_editor_draft(
+            $coursecontext,
+            $user->id,
+            'id_course_intro',
+            'text for test user at course context'
+        );
+        $coursedraftdescription = $this->create_editor_draft(
+            $coursecontext,
+            $user->id,
+            'id_course_description',
+            'text for test user at course context'
+        );
 
         // Create some data as the other user too.
         $otherusercontextids = [];
@@ -278,18 +403,42 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $otherusercontextids[] = $systemcontext->id;
         $otherusercontextids[] = $coursecontext->id;
 
-        $otheruserdraftintro = $this->create_editor_draft($otherusercontext, $otheruser->id,
-                'id_user_intro', 'text for other user at own context');
-        $otheruserdraftdescription = $this->create_editor_draft($otherusercontext, $otheruser->id,
-                'id_user_description', 'text for other user at own context');
-        $systemotheruserdraftintro = $this->create_editor_draft($systemcontext, $otheruser->id,
-                'id_system_intro', 'text for other user at system context');
-        $systemotheruserdraftdescription = $this->create_editor_draft($systemcontext, $otheruser->id,
-                'id_system_description', 'text for other user at system context');
-        $courseotheruserdraftintro = $this->create_editor_draft($coursecontext, $otheruser->id,
-                'id_course_intro', 'text for other user at course context');
-        $courseotheruserdraftdescription = $this->create_editor_draft($coursecontext, $otheruser->id,
-                'id_course_description', 'text for other user at course context');
+        $otheruserdraftintro = $this->create_editor_draft(
+            $otherusercontext,
+            $otheruser->id,
+            'id_user_intro',
+            'text for other user at own context'
+        );
+        $otheruserdraftdescription = $this->create_editor_draft(
+            $otherusercontext,
+            $otheruser->id,
+            'id_user_description',
+            'text for other user at own context'
+        );
+        $systemotheruserdraftintro = $this->create_editor_draft(
+            $systemcontext,
+            $otheruser->id,
+            'id_system_intro',
+            'text for other user at system context'
+        );
+        $systemotheruserdraftdescription = $this->create_editor_draft(
+            $systemcontext,
+            $otheruser->id,
+            'id_system_description',
+            'text for other user at system context'
+        );
+        $courseotheruserdraftintro = $this->create_editor_draft(
+            $coursecontext,
+            $otheruser->id,
+            'id_course_intro',
+            'text for other user at course context'
+        );
+        $courseotheruserdraftdescription = $this->create_editor_draft(
+            $coursecontext,
+            $otheruser->id,
+            'id_course_description',
+            'text for other user at course context'
+        );
 
         // Test deletion of all data for user in usercontext only.
         $contextlist = new \core_privacy\tests\request\approved_contextlist(
@@ -354,21 +503,43 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $this->setUser($user);
 
         // Add a fake inline image to the original post.
-        $this->create_editor_draft($usercontext, $user->id,
-                'id_user_intro', 'text for test user at own context');
-        $this->create_editor_draft($systemcontext, $user->id,
-            'id_system_intro', 'text for test user at system context', 2);
-        $this->create_editor_draft($systemcontext, $user->id,
-            'id_system_description', 'text for test user at system context', 4);
-        $this->create_editor_draft($coursecontext, $user->id,
-            'id_course_intro', 'text for test user at course context');
+        $this->create_editor_draft(
+            $usercontext,
+            $user->id,
+            'id_user_intro',
+            'text for test user at own context'
+        );
+        $this->create_editor_draft(
+            $systemcontext,
+            $user->id,
+            'id_system_intro',
+            'text for test user at system context',
+            2
+        );
+        $this->create_editor_draft(
+            $systemcontext,
+            $user->id,
+            'id_system_description',
+            'text for test user at system context',
+            4
+        );
+        $this->create_editor_draft(
+            $coursecontext,
+            $user->id,
+            'id_course_intro',
+            'text for test user at course context'
+        );
 
         // Create user2.
         $user2 = $this->getDataGenerator()->create_user();
         $this->setUser($user2);
 
-        $this->create_editor_draft($coursecontext, $user2->id,
-            'id_course_description', 'text for test user2 at course context');
+        $this->create_editor_draft(
+            $coursecontext,
+            $user2->id,
+            'id_course_description',
+            'text for test user2 at course context'
+        );
 
         // The list of users in usercontext should return user.
         $userlist = new \core_privacy\local\request\userlist($usercontext, $component);
@@ -415,36 +586,86 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $this->setUser($user);
 
         // Add a fake inline image to the original post.
-        $this->create_editor_draft($usercontext, $user->id,
-            'id_user_intro', 'text for test user at own context');
-        $this->create_editor_draft($usercontext, $user->id,
-            'id_user_description', 'text for test user at own context');
-        $this->create_editor_draft($systemcontext, $user->id,
-            'id_system_intro', 'text for test user at system context', 2);
-        $this->create_editor_draft($systemcontext, $user->id,
-            'id_system_description', 'text for test user at system context', 4);
-        $this->create_editor_draft($coursecontext, $user->id,
-            'id_course_intro', 'text for test user at course context');
-        $this->create_editor_draft($coursecontext, $user->id,
-            'id_course_description', 'text for test user at course context');
+        $this->create_editor_draft(
+            $usercontext,
+            $user->id,
+            'id_user_intro',
+            'text for test user at own context'
+        );
+        $this->create_editor_draft(
+            $usercontext,
+            $user->id,
+            'id_user_description',
+            'text for test user at own context'
+        );
+        $this->create_editor_draft(
+            $systemcontext,
+            $user->id,
+            'id_system_intro',
+            'text for test user at system context',
+            2
+        );
+        $this->create_editor_draft(
+            $systemcontext,
+            $user->id,
+            'id_system_description',
+            'text for test user at system context',
+            4
+        );
+        $this->create_editor_draft(
+            $coursecontext,
+            $user->id,
+            'id_course_intro',
+            'text for test user at course context'
+        );
+        $this->create_editor_draft(
+            $coursecontext,
+            $user->id,
+            'id_course_description',
+            'text for test user at course context'
+        );
 
         // Create some data as the other user too.
         $otheruser = $this->getDataGenerator()->create_user();
         $otherusercontext = \core\context\user::instance($otheruser->id);
         $this->setUser($otheruser);
 
-        $this->create_editor_draft($otherusercontext, $otheruser->id,
-            'id_user_intro', 'text for other user at own context');
-        $this->create_editor_draft($otherusercontext, $otheruser->id,
-            'id_user_description', 'text for other user at own context');
-        $this->create_editor_draft($systemcontext, $otheruser->id,
-            'id_system_intro', 'text for other user at system context');
-        $this->create_editor_draft($systemcontext, $otheruser->id,
-            'id_system_description', 'text for other user at system context');
-        $this->create_editor_draft($coursecontext, $otheruser->id,
-            'id_course_intro', 'text for other user at course context');
-        $this->create_editor_draft($coursecontext, $otheruser->id,
-            'id_course_description', 'text for other user at course context');
+        $this->create_editor_draft(
+            $otherusercontext,
+            $otheruser->id,
+            'id_user_intro',
+            'text for other user at own context'
+        );
+        $this->create_editor_draft(
+            $otherusercontext,
+            $otheruser->id,
+            'id_user_description',
+            'text for other user at own context'
+        );
+        $this->create_editor_draft(
+            $systemcontext,
+            $otheruser->id,
+            'id_system_intro',
+            'text for other user at system context'
+        );
+        $this->create_editor_draft(
+            $systemcontext,
+            $otheruser->id,
+            'id_system_description',
+            'text for other user at system context'
+        );
+        $this->create_editor_draft(
+            $coursecontext,
+            $otheruser->id,
+            'id_course_intro',
+            'text for other user at course context'
+        );
+        $this->create_editor_draft(
+            $coursecontext,
+            $otheruser->id,
+            'id_course_description',
+            'text for other user at course context'
+        );
 
         // The list of users for usercontext should return user.
         $userlist1 = new \core_privacy\local\request\userlist($usercontext, $component);
@@ -523,8 +744,12 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $otherusercontext = \core\context\user::instance($otheruser->id);
         $this->setUser($user);
 
-        $userdraftintro = $this->create_editor_draft($usercontext, $otheruser->id,
-                'id_user_intro', 'text for test user at other context');
+        $userdraftintro = $this->create_editor_draft(
+            $usercontext,
+            $otheruser->id,
+            'id_user_intro',
+            'text for test user at other context'
+        );
 
         // Test as the owning user.
         $this->setUser($user);
@@ -553,7 +778,6 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
             [$usercontext->id]
         );
 
-
         // Deleting for this context should _not_ delete as the user does not own this draft (crazy edge case, remember).
         provider::delete_data_for_user($contextlist);
         $records = $DB->get_records('editor_atto_autosave');
@@ -576,8 +800,12 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $otherusercontext = \core\context\user::instance($otheruser->id);
         $this->setUser($user);
 
-        $userdraftintro = $this->create_editor_draft($otherusercontext, $user->id,
-                'id_user_intro', 'text for other user you just edited.');
+        $userdraftintro = $this->create_editor_draft(
+            $otherusercontext,
+            $user->id,
+            'id_user_intro',
+            'text for other user you just edited.'
+        );
 
         // Test as the context owner.
         $this->setUser($user);
@@ -609,7 +837,7 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $this->assertEmpty($DB->get_records('editor_atto_autosave'));
     }
 
-   /**
+    /**
      * Create an editor draft.
      *
      * @param   \context    $context The context to create the draft for.
@@ -626,7 +854,8 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $fs = get_file_storage();
 
         for ($i = 0; $i < $filecount; $i++) {
-            $fs->create_file_from_string([
+            $fs->create_file_from_string(
+                [
                     'contextid' => $context->id,
                     'component' => 'user',
                     'filearea'  => 'draft',
@@ -634,7 +863,8 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
                     'filepath'  => '/',
                     'filename'  => "example_{$i}.txt",
                 ],
-            "Awesome example of a text file with id {$i} for {$context->id} and {$elementid}");
+                "Awesome example of a text file with id {$i} for {$context->id} and {$elementid}"
+            );
         }
 
         $id = $DB->insert_record('editor_atto_autosave', (object) [

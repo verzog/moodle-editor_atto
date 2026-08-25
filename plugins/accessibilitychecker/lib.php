@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Initialise this plugin
  * @param string $elementid
@@ -31,7 +29,8 @@ defined('MOODLE_INTERNAL') || die();
 function atto_accessibilitychecker_strings_for_js() {
     global $PAGE;
 
-    $PAGE->requires->strings_for_js(array('nowarnings',
+    $PAGE->requires->strings_for_js(
+        ['nowarnings',
                                     'report',
                                     'imagesmissingalt',
                                     'needsmorecontrast',
@@ -40,7 +39,7 @@ function atto_accessibilitychecker_strings_for_js() {
                                     'tablesmissingcaption',
                                     'emptytext',
                                     'entiredocument',
-                                    'tablesmissingheaders'),
-                                    'atto_accessibilitychecker');
+                                    'tablesmissingheaders'],
+        'atto_accessibilitychecker'
+    );
 }
-

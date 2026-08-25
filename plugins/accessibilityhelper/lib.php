@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Initialise this plugin
  * @param string $elementid
@@ -31,14 +29,15 @@ defined('MOODLE_INTERNAL') || die();
 function atto_accessibilityhelper_strings_for_js() {
     global $PAGE;
 
-    $PAGE->requires->strings_for_js(array('liststyles',
+    $PAGE->requires->strings_for_js(
+        ['liststyles',
                                     'nostyles',
                                     'listlinks',
                                     'nolinks',
                                     'selectlink',
                                     'listimages',
                                     'noimages',
-                                    'selectimage'),
-                                    'atto_accessibilityhelper');
+                                    'selectimage'],
+        'atto_accessibilityhelper'
+    );
 }
-
